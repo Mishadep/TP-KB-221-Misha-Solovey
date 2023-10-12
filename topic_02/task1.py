@@ -1,29 +1,33 @@
 import math
 
-def quadratic_roots(a, b, c):
-    # Розрахунок дискримінанту
-    discriminant = b**2 - 4*a*c
+def Disc(a,b,c):
+    D = b**2 - 4 * a * c
+    return D
 
-    # Перевірка дискримінанту
-    if discriminant > 0:
-        # Два дійсних корені
-        root1 = (-b + math.sqrt(discriminant)) / (2*a)
-        root2 = (-b - math.sqrt(discriminant)) / (2*a)
-        return root1, root2
-    elif discriminant == 0:
-        # Один дійсний корінь (корінь кратності 2)
-        root = -b / (2*a)
-        return root,
+def Roots(a,b,c):
+    D = Disc(a, b, c)
+
+    if D > 0:
+        x1 = (-b + math.sqrt(D)) / (2 * a)
+        x2 = (-b - math.sqrt(D)) / (2 * a)
+        return x1, x2
+    elif D == 0:
+        x1 = -b / (2 * a)
+        return x1
     else:
-        # Коренів немає в дійсних числах
         return None
+    
+a, b, c = map(float, input("Enter a, b and c (separated by spaces): ").split())
 
-# Приклад використання функції
-a = 1
-b = -3
-c = 2
-roots = quadratic_roots(a, b, c)
-if roots:
-    print("Корені квадратного рівняння:", roots)
+roots = Roots(a, b, c)
+if roots is not None:
+    if isinstance(roots, tuple):
+        x1, x2 = roots
+        print("Two real roots:")
+        print(f"x1 = {x1:.2f}")
+        print(f"x2 = {x2:.2f}")
+    else:
+        x1 = roots
+        print("One real root: x1 = ", x1)
 else:
-    print("Корені відсутні в дійсних числах")
+    print("No real roots")
